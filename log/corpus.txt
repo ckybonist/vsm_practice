@@ -1,0 +1,3 @@
+["docs/doc2.txt", ["arrived", "delivery", "silver", "silver", "truck"]]
+["docs/doc3.txt", ["arrived", "gold", "shipment", "truck"]]
+["docs/doc1.txt", ["damanged", "fire", "gold", "shipment"]]
