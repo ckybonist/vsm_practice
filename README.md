@@ -14,5 +14,5 @@ run script with python 3.x
 4. python search.py (input query then get ranking result)
 
 
-# TODO :
+## TODO :
 1. Implement SMART notations
