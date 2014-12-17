@@ -44,7 +44,8 @@ def LoadInvertedIndex():
             term = record[0]
             doc_freq = record[1]
             weights_of_docs = record[2]
-            inverted_index[term] = (doc_freq, {d : w for d, w in weights_of_docs})
+            inverted_index[term] = (doc_freq,
+                                    {d : w for d, w in weights_of_docs})
 
     return inverted_index
 
@@ -59,8 +60,9 @@ def CreateEachDocVectors(inverted_index):
 
     result = {}
     for doc_id, terms in docs.items():
-        vec = {t : inverted_index[t][1][doc_id]  # term weight
-               for t in terms}  # [(term, weight), ...]
+        # vec -> [(term, weight), ...]
+        vec = {t : inverted_index[t][1][doc_id]
+               for t in terms}
         vec_len = ComputeVectorLength([weight for weight in vec.values()])
         result[doc_id] = (vec, vec_len)
     return result
@@ -94,7 +96,6 @@ def Ranking(query):
 
 def ShowRanking(result):
     print('\n')
-
     rank = 1
     for e in result:
         doc_id = e[0]
@@ -103,7 +104,6 @@ def ShowRanking(result):
             cos = "{:.4f}".format(e[1])
             print("Rank {0} :\n   {1}\n   similarity with query => {2}\n".format(rank, doc_id, cos))
             rank = rank + 1
-
     print("\nTotal result : {0}".format(rank - 1))
 
 
