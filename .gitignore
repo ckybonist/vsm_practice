@@ -53,4 +53,4 @@ docs/_build/
 target/
 
 # log file
-log/*.txt
+log/
