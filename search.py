@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import sys
 import json
 from math import log, sqrt
 
@@ -68,7 +69,6 @@ def CreateEachDocVectors(inverted_index):
     return result
 
 def CreateQueryVector(query, total_doc, inverted_index):
-    query = query.split()
     term_freqs = freqtool.GetWordFreq(query)
     max_freq = max(term_freqs.values())
     qvec = {}
@@ -80,9 +80,7 @@ def CreateQueryVector(query, total_doc, inverted_index):
         qvec[t] = weight
     return qvec
 
-
-def Ranking(query):
-    inverted_index = LoadInvertedIndex()             # {term : (df, {doc-id : weight, ...})}
+def Ranking(query, inverted_index):
     doc_vecs = CreateEachDocVectors(inverted_index)  # {doc-id : ((doc vec, vec length)}
 
     total_doc = len(doc_vecs)
@@ -106,10 +104,30 @@ def ShowRanking(result):
             rank = rank + 1
     print("\nTotal result : {0}".format(rank - 1))
 
+def FilterQuery(query, corpus):
+    query = query.split()
+    return filter(lambda t: t in corpus, query)
+
+def CheckQueryIsValid(query, corpus):
+    " Filter query string to a list, if every word in this list \
+      not appear in our corpus will get a empty list and exit the program. \
+      Else, return the valid list and do the ranking process. "
+    query = list(FilterQuery(query, corpus))
+    if not query:
+        print("Thers is no possible result for this query")
+        sys.exit(1)
+    else:
+        return query
+
 
 if __name__ == "__main__":
     query = input("Input query terms (seperate by space) : ");
-    result = Ranking(query)
+
+    inverted_index = LoadInvertedIndex()  # {term : (df, {doc-id : weight, ...})}
+    corpus = inverted_index.keys()
+    query = CheckQueryIsValid(query, corpus)
+
+    result = Ranking(query, inverted_index)
     ShowRanking(result)
 
 
