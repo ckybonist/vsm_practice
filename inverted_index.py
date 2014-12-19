@@ -28,11 +28,12 @@ def GenrInvertedIndex(docs):
     term_indexes = GenrIndexOfTerm(docs)  # {term : (docID, term_freq (normalized)}
     inverted_index = dict()
     total_docs = len(docs)
+
     for term, index in term_indexes.items():  # data -> (docID, tf_norm)
         unique_index = index
-
         df = len(unique_index)  # doc freq
         idf = log(total_docs / df, 10)  # inverse doc freq
+
         for doc_id in unique_index.keys():
             tf = unique_index[doc_id]
             unique_index[doc_id] = tf * idf

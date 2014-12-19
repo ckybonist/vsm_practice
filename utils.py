@@ -11,4 +11,7 @@ def WriteLine2JSON(outfile, obj):
 
 def WriteJSONObj(outfile, obj):
     with open(outfile, 'w') as fp:
-        json.dump(obj, fp, indent=2)
+        json.dump(obj,
+                  fp,
+                  ensure_ascii = False,
+                  indent = 2)
