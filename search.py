@@ -14,7 +14,6 @@ import freqtool
         dict object { term(key) : weight(value) }
 """
 
-
 def ComputeVectorLength(vec):
     tmp = sum([n**2 for n in vec])
     return sqrt(tmp)
@@ -32,35 +31,24 @@ def ComputeCosine(query_vec, doc_vec):
     qd_inner = DotProduct(query_vec, doc_vec)
     q_len = ComputeVectorLength(query_vec.values())
     d_len = ComputeVectorLength(doc_vec.values())
-    cosine = 0
     if q_len * d_len != 0:
         cosine = qd_inner / (q_len * d_len)
-    return cosine
+        return cosine
+    else:
+        print("Error in computing cosine similarity")
+        sys.exit(1)
 
 def LoadInvertedIndex():
-    inverted_index = dict()
     with open('log/index.txt', 'r') as fp:
-        for line in fp.readlines():
-            record = json.loads(line)
-            term = record[0]
-            doc_freq = record[1]
-            weights_of_docs = record[2]
-            inverted_index[term] = (doc_freq,
-                                    {d : w for d, w in weights_of_docs})
-
+        inverted_index = json.load(fp)
     return inverted_index
 
 def CreateEachDocVectors(inverted_index):
-    docs = {}
     with open('log/corpus.txt', 'r') as fp:
-        for line in fp.readlines():
-            record = json.loads(line)
-            doc_id = record[0]
-            terms = set(record[1])
-            docs[doc_id] = terms
+        doc_index = json.load(fp)
 
-    result = {}
-    for doc_id, terms in docs.items():
+    result = dict()
+    for doc_id, terms in doc_index.items():
         # vec -> [(term, weight), ...]
         vec = {t : inverted_index[t][1][doc_id]
                for t in terms}
@@ -71,7 +59,7 @@ def CreateEachDocVectors(inverted_index):
 def CreateQueryVector(query, total_doc, inverted_index):
     term_freqs = freqtool.GetWordFreq(query)
     max_freq = max(term_freqs.values())
-    qvec = {}
+    qvec = dict()
     for t in query:
         idf = log(total_doc / inverted_index[t][0], 10)
         tf_norm = term_freqs[t] / max_freq  # normalize term-freq
@@ -101,7 +89,7 @@ def ShowRanking(result):
         if cos > 0:
             cos = "{:.4f}".format(e[1])
             print("Rank {0} :\n   {1}\n   similarity with query => {2}\n".format(rank, doc_id, cos))
-            rank = rank + 1
+            rank += 1
     print("\nTotal result : {0}".format(rank - 1))
 
 def FilterQuery(query, corpus):
@@ -112,6 +100,7 @@ def CheckQueryIsValid(query, corpus):
     " Filter query string to a list, if every word in this list \
       not appear in our corpus will get a empty list and exit the program. \
       Else, return the valid list and do the ranking process. "
+
     query = list(FilterQuery(query, corpus))
     if not query:
         print("Thers is no possible result for this query")

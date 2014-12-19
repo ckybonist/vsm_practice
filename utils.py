@@ -8,3 +8,7 @@ def WriteLine2JSON(outfile, obj):
         for e in obj:
             json.dump(e, fp)
             fp.write('\n')
+
+def WriteJSONObj(outfile, obj):
+    with open(outfile, 'w') as fp:
+        json.dump(obj, fp, indent=2)

@@ -2,11 +2,10 @@
 # -*- coding: utf-8 -*-
 
 import glob
-#import json
 from string import punctuation
 
+import utils
 from stopwords import stopwords_list
-from utils import WriteLine2JSON
 
 
 def RemoveStopWords(token_list):
@@ -34,20 +33,18 @@ def Tokenize(mystr):
     return terms
 
 def GenrDocIndex():
-    doc_index = []
-
+    doc_index = dict()
     files = glob.glob("docs/*")
     for f in files:
         with open (f, 'r') as input:
             contents = input.read()
             terms = Tokenize(contents)
-            record = [f, terms]
-            doc_index.append(record)
+            doc_index[f] = terms
 
-    WriteLine2JSON('log/corpus.txt', doc_index)
+    utils.WriteJSONObj('log/corpus.txt', doc_index)
 
 
 if  __name__ == "__main__":
     GenrDocIndex()
 
-
+# End of File
