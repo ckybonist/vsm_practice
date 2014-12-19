@@ -4,11 +4,12 @@ vsm_practice
 Practice of Vector Space Model (IR model)
 
 ## Pre-Requisite :
-run script with python 3.x
-
+* python 3
+* ruby 2.1 (if use branch "chinese")
+* Checkout to branch "chinese" if your documents contain chinese fonts
 
 ## Usage :
-1. create directory "log"
+1. Create directory "log"
 2. Put your documents in docs/
 3. python parser.py (generate corpus.txt)
 4. python inverted_index.py (generate index.txt)
@@ -16,4 +17,4 @@ run script with python 3.x
 
 
 ## TODO :
-1. Implement SMART notations
+1. Implement S.M.A.R.T notations
