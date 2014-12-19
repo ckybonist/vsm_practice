@@ -8,10 +8,11 @@ run script with python 3.x
 
 
 ## Usage :
-1. Put your documents in docs/
-2. python parser.py (generate corpus.txt in log/)
-3. python inverted_index.py (generate index.txt in log/)
-4. python search.py (input query then get ranking result)
+1. create directory "log"
+2. Put your documents in docs/
+3. python parser.py (generate corpus.txt)
+4. python inverted_index.py (generate index.txt)
+5. python search.py (input query then get ranking result)
 
 
 ## TODO :
