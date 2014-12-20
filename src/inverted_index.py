@@ -43,10 +43,10 @@ def GenrInvertedIndex(docs):
 
 
 if __name__ == "__main__":
-    with open('log/corpus.txt', 'r') as fp:
+    with open('../log/corpus.txt', 'r') as fp:
         doc_index = json.load(fp)
 
     inverted_index = GenrInvertedIndex(doc_index)
-    utils.WriteJSONObj('log/index.txt', inverted_index)
+    utils.WriteJSONObj('../log/index.txt', inverted_index)
 
 # End of File

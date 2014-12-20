@@ -39,12 +39,12 @@ def ComputeCosine(query_vec, doc_vec):
         sys.exit(1)
 
 def LoadInvertedIndex():
-    with open('log/index.txt', 'r') as fp:
+    with open('../log/index.txt', 'r') as fp:
         inverted_index = json.load(fp)
     return inverted_index
 
 def CreateEachDocVectors(inverted_index):
-    with open('log/corpus.txt', 'r') as fp:
+    with open('../log/corpus.txt', 'r') as fp:
         doc_index = json.load(fp)
 
     result = dict()

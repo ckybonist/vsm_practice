@@ -50,7 +50,7 @@ def GenrDocIndex(use_ckip):
 
         #TODO : create another thread to
         #       set the name of tmp_file
-        tmp_file = 'log/tmp_corpus.txt'
+        tmp_file = '../log/tmp_corpus.txt'
         with open(tmp_file, 'r') as fp:
             doc_index = json.load(fp)
         os.remove(tmp_file)
@@ -58,14 +58,14 @@ def GenrDocIndex(use_ckip):
     else:
         # My personal word segment tool
         doc_index = dict()
-        files = glob.glob("docs/*")
+        files = glob.glob("../docs/*")
         for f in files:
             with open (f, 'r') as input:
                 contents = input.read()
                 terms = Tokenize(contents)
                 doc_index[f] = terms
 
-    utils.WriteJSONObj('log/corpus.txt', doc_index)
+    utils.WriteJSONObj('../log/corpus.txt', doc_index)
 
 
 if  __name__ == "__main__":

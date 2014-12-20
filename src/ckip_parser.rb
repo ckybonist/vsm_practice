@@ -1,7 +1,7 @@
 #!/usr/bin/ruby
 
 require 'json'
-require 'CKIP_Client'
+require_relative '../lib/ckip/CKIP_Client'
 
 class NLTool
     def Segment(text)
@@ -37,7 +37,7 @@ end
 def GenrDocIndex()
     nl_tool = NLTool.new()
     doc_index = Hash.new()
-    files = Dir.glob("docs/*")
+    files = Dir.glob("../docs/*")
 
     files.each do |f|
         text = File.open(f, "r").read()
@@ -46,7 +46,7 @@ def GenrDocIndex()
         doc_index[f] = corpus
     end
 
-    File.open("log/tmp_corpus.txt", "w") do |f|
+    File.open("../log/tmp_corpus.txt", "w") do |f|
         f.write(JSON.pretty_generate(doc_index))
     end
 end
