@@ -1,7 +1,5 @@
-vsm_practice
+Vector Space Model Practice
 ============
-
-Practice of Vector Space Model (IR model)
 
 ## Pre-Requisite :
 * python 3
