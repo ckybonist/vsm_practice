@@ -11,7 +11,7 @@ Vector Space Model Practice
 2. Put your documents in `docs/`
 3. `python parser.py` (generate corpus.txt)
 4. `python inverted_index.py` (generate index.txt)
-5.` python search.py` (input query then get ranking result)
+5. `python search.py` (input query then get ranking result)
 
 
 ## TODO :
